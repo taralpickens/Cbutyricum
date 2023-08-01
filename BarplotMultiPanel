@@ -1,0 +1,66 @@
+#Fig2a Growth 6 hrs with Mal + MDs
+# Create data
+#Uploaded from Excel
+##GCforMalMDs
+
+#To produce the barplot with desired colors + error bars
+gcMal <-ggplot(data=GCforMalMDs, aes(x=Substrate, y=AmtGas,fill=Substrate))+
+  geom_bar(stat="identity", alpha=0.8) +
+  scale_fill_manual(values=c("thistle1",
+                             "paleturquoise3",
+                             "mediumorchid",
+                             "orchid1")) +
+  geom_errorbar(aes(x=Substrate, ymin=AmtGas-sd, ymax=AmtGas+sd), width=0.1, colour="black", alpha=0.9, linewidth=0.4) +
+  theme_classic()
+gcMal
+
+######
+
+#To make Fig2b 24 hrs with insol substrates
+#input data from Excel spreadsheet
+#GCforRS
+
+
+#To make figure with desired colors + error bars
+gcRS <- ggplot(data=GCforRS, aes(x=Substrate, y=AmtGas, fill=Substrate)) + 
+  geom_bar(stat="identity", alpha=0.8) + 
+  scale_fill_manual(values=c("thistle1", "darkseagreen2", "coral", "cornflowerblue", "coral4")) + 
+  geom_errorbar(aes(x=Substrate, ymin=AmtGas-sd, ymax=AmtGas+sd), width=0.1, colour="black", alpha=0.9, linewidth=0.4) + 
+  theme_classic() 
+gcRS
+
+######
+
+#Fig2c pH all Substrates
+# Create data
+#Uploaded from Excel
+##pH
+
+#To produce the barplot with desired colors + error bars
+PlotpH <-ggplot(data=pH, aes(x=Substrate, y=pH,fill=Substrate))+
+  geom_bar(stat="identity", alpha=0.8) +
+  scale_fill_manual(values=c("thistle1","thistle2","darkseagreen2","coral", "paleturquoise3","mediumorchid","orchid1","cornflowerblue", "coral4")) +
+  geom_errorbar(aes(x=Substrate, ymin=pH-sd, ymax=pH+sd), width=0.1, colour="black", alpha=0.9, linewidth=0.4) +
+  theme_classic()
+PlotpH
+
+######
+
+#To make Fig2d Adherence  
+#input data from Excel spreadsheet
+#AdRS
+
+
+#To make figure with desired colors + error bars
+AdRSfig <- ggplot(AdRS_percentages_and_sd, aes(x=Substrate, y=PercentBound, fill=Substrate)) + 
+  geom_bar(stat="identity", alpha=0.8) + 
+  scale_fill_manual(values=c("thistle1", "darkseagreen2", "coral", "cornflowerblue", "coral4")) + 
+  geom_errorbar(aes(x=Substrate, ymin=PercentBound-sd, ymax=PercentBound+sd), width=0.1, colour="black", alpha=0.9, linewidth=0.4) + 
+  theme_classic() 
+AdRSfig
+
+#combine plots into one using plot_grid()
+combined_plot<-plot_grid(gcMal,gcRS,PlotpH,AdRSfig,ncol=2)
+
+## Combine combined plot and legend using plot_grid()
+plot_grid(combined_plot, legend,ncol=1,rel_heights = c(2.5, 1))
