@@ -1,0 +1,32 @@
+#To make Fig1b 24 hrs with mal and MDs and insol substrates
+#input data from Excel spreadsheet
+###https://www.datanovia.com/en/blog/how-to-create-a-ggplot-stacked-bar-chart-2/
+
+#To make figure with desired colors + error bars
+SCFA <- ggplot(data=Data_to_use_for_R_input_of_SCFAs_for_Mal_and_MDs, aes(x=Substrate, y=mM, fill=SCFAs)) + 
+  geom_col(aes(fill=SCFAs), width = 0.7)+
+  scale_fill_manual(values=c("thistle1", "darkseagreen2", "coral")) + 
+  geom_errorbar(aes(x=Substrate, ymin=mM-sd, ymax=mM+sd), width=0.1, colour="black", alpha=0.9, linewidth=0.4) + 
+  theme_classic() 
+SCFA
+
+##without error bars
+
+SCFA <- ggplot(data=Data_to_use_for_R_input_of_SCFAs_for_Mal_and_MDs, aes(x=Substrate, y=mM, fill=SCFAs)) + 
+  geom_col(aes(fill=SCFAs), width = 0.7)+
+  scale_fill_manual(values=c("darkslategray2", "darkslategray3", "darkslategray")) + 
+  theme_classic() 
+SCFA
+
+SCFArs <- ggplot(data=Data_SCFA_for_RS, aes(x=Substrate, y=mM, fill=SCFAs)) + 
+  geom_col(aes(fill=SCFAs), width = 0.7)+
+  scale_fill_manual(values=c("darkslategray2", "darkslategray3", "darkslategray")) + 
+  theme_classic() 
+SCFArs
+
+##New Fig2A-D
+#combine plots into one using plot_grid()
+combined_plot<-plot_grid(SCFA, SCFArs, PlotpH,AdRSfig, ncol=2)
+
+## Combine combined plot and legend using plot_grid()
+plot_grid(combined_plot, legend,ncol=1,rel_heights = c(2.5, 1))
