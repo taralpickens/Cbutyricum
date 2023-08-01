@@ -1,0 +1,40 @@
+#Fig1a Growth 6 hrs with Mal + MDs
+# Create data
+Data3 <- data.frame(
+  Substrate=c("Control(PBS)","Mal","MD1","MD2") ,  
+  LogCFUpermL=c(2.004,8.906,7.492,7.668),
+  sd=c(0.326, 0.134, 0.182, 0.039))
+
+#To produce the barplot with desired colors + error bars
+perf <-ggplot(data=Data3, aes(x=Substrate, y=LogCFUpermL,fill=Substrate))+
+  geom_bar(stat="identity", alpha=0.8) +
+  scale_fill_manual(values=c("thistle1",
+                             "paleturquoise3",
+                             "mediumorchid",
+                             "orchid1")) +
+  geom_errorbar(aes(x=Substrate, ymin=LogCFUpermL-sd, ymax=LogCFUpermL+sd), width=0.1, colour="black", alpha=0.9, linewidth=0.4) +
+  theme_classic()
+perf
+
+#To make Fig1b 24 hrs with insol substrates
+#input data from Excel spreadsheet
+DataRSGrow <- data.frame(Substrate=c("Control(PBS)", "CS", "HM", "PS", "VF"), 
+                         LogCFUpermL=c(6.192, 8.102, 8.197, 7.492, 6.053), 
+                         sd=c(0.036, 0.120, 0.076, 0.018, 0.039))
+View(DataRSGrow)
+
+#To make figure with desired colors + error bars
+perf3 <- ggplot(data=DataRSGrow, aes(x=Substrate, y=LogCFUpermL, fill=Substrate)) + 
+  geom_bar(stat="identity", alpha = 0.8) + 
+  scale_fill_manual(values=c("thistle1", "darkseagreen2", "coral", "cornflowerblue", "coral4")) + 
+  geom_errorbar(aes(x=Substrate, ymin=LogCFUpermL-sd, ymax=LogCFUpermL+sd), width=0.1, colour="black", alpha=0.9, linewidth=0.4) + 
+  theme_classic() 
+perf3
+
+
+
+#combine plots into one using plot_grid()
+combined_plot<-plot_grid(perf, perf3,ncol=2)
+
+## Combine combined plot and legend using plot_grid()
+plot_grid(combined_plot, legend,ncol=1,rel_heights = c(1, 1))
