@@ -1,0 +1,54 @@
+# Compare species: number of occurrences
+# **************************************
+# Compute the number of sites where each species is present
+# To sum by columns, the second argument of apply(), MARGIN, is set to 2
+spe.pres <- apply(spe > 0, 2, sum)
+# Sort the results in increasing order
+sort(spe.pres)
+# Compute percentage frequencies
+spe.relf <- 100*spe.pres/nrow(spe)
+round(sort(spe.relf), 1)	# Round the sorted output to 1 digit
+
+# Compare species: number of occurrences
+# **************************************
+# Compute the number of sites where each species is present
+# To sum by columns, the second argument of apply(), MARGIN, is set to 2
+spe.pres <- apply(spe > 0, 2, sum)
+# Sort the results in increasing order
+sort(spe.pres)
+# Compute percentage frequencies
+spe.relf <- 100*spe.pres/nrow(spe)
+round(sort(spe.relf), 1)	# Round the sorted output to 1 digit
+
+###################
+
+# make transparent colors...can be used for overlapping elements, define a new color using numerical values (0 - 255) #
+# The alpha command sets the level of transparency, 0 - fully transparent, 255 - solid color
+# A max value is set so R can relate the alpha value to a level of transparency
+trans.green <- rgb(0, 0, 250, max = 250, alpha = 35, names = "green12")
+# The names parameter sets the names attribute for the color you created
+# Name can't be used directly
+trans.green
+# This returns the R designated name...ie green25 = "#0000FF7D" #
+
+##############################################
+## Plotting Data ##
+windows(title="Frequency Histograms",8,5)
+
+hist(spe.pres, main="Species Occurrences and Relative Frequencies", right=TRUE, las=1, 
+     xlab="Number of occurrences", ylab="Number of species",
+     breaks=seq(0, 30, by=5), col = NULL)
+## col = null tells R to put no fill color 
+
+par(new=TRUE)		
+## This tells R not to clear the plot window so you can plot more data on the same axes
+
+
+hist(spe.relf, main = NULL, right=FALSE, las=1, axis = FALSE, 
+     xlab="Relative Frequencies (%)", ylab="",
+     breaks=seq(0, 100, by=5), col=trans.green)
+## Axis = false, no default axis ##
+ 
+(axis(side = 3))
+## Tells R to put another axis on the right side
+
